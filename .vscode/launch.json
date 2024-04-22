@@ -17,10 +17,10 @@
             "type": "pwa-node"
         },
         {
-            "name": "Challenges Update",
+            "name": "Subspaces Update",
             "request": "launch",
             "runtimeArgs": [
-                "run", "update-challenge-contexts"
+                "run", "update-subspaces-contexts"
             ],
             "runtimeExecutable": "npm",
             "skipFiles": [
@@ -45,42 +45,6 @@
             "request": "launch",
             "runtimeArgs": [
                 "run", "populate-avatars"
-            ],
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "pwa-node"
-        },
-        {
-            "name": "Opportunity",
-            "request": "launch",
-            "runtimeArgs": [
-                "run", "sample-opportunity"
-            ],
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "pwa-node"
-        },
-        {
-            "name": "Odyssey Opportunities",
-            "request": "launch",
-            "runtimeArgs": [
-                "run", "populate-odyssey-opportunities"
-            ],
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "pwa-node"
-        },
-        {
-            "name": "Odyssey Update Opportunity",
-            "request": "launch",
-            "runtimeArgs": [
-                "run", "update-odyssey-opportunity-actors"
             ],
             "runtimeExecutable": "npm",
             "skipFiles": [
