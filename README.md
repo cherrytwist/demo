@@ -8,9 +8,11 @@
 
 This repository helps get a simple demonstrator instance of Alkemio running, and populated.
 
+__This repository is seriously out of date__. _If you are interested in creating a local instance of Alkemio then please reach out (support@alkem.io) or look to the [Server](http://github.com/alkem-io/server) repository, together with the [Populator](http://github.com/alkem-io/populator) repository_
+
 The core pieces of the demo are:
 
-- **[Server](http://github.com/alkem-io/server)**: The core Alkemio server that hosts the Challenge Hubs, and that exposes a GraphQL based api
+- **[Server](http://github.com/alkem-io/server)**: The core Alkemio server that hosts one or more Spaces, and that exposes a GraphQL based api
 - **[Client-Web](http://github.com/alkem-io/client-web)**: Web front end that interfaces with the Alkemio Server
 - **Oathkeeper, Kratos**: Provide authentication and identity management services that are used by the server
 - **Traefik**: Used to create a single overview of all routes into the cluster
@@ -23,7 +25,7 @@ The core pieces of the demo are:
 ### Interaction
 As shown by the bold arrows on the above diagram, you can then intereact in two primary ways with the demo:
 * **Alkemio Web Client**: open a local browser and navigate to [http://localhost:3000](http://localhost:3000). This will direct you to the client so you can browse the contents of the platform.
-* **Alkemio Server API**: open a local browser and navigate to [http://localhost:3000/graphql](http://localhost:3000/graphql), where you can interact directly with the data representing the Challenges via direct access to the graphql api on the server.
+* **Alkemio Server API**: open a local browser and navigate to [http://localhost:3000/graphql](http://localhost:3000/graphql), where you can interact directly with the data held in Spaces via direct access to the graphql api on the server.
 
 ## Software Setup
 
@@ -44,7 +46,7 @@ The following commands are used to run this project:
 
 Note: the first time the cluster starts up it has some installations to make, so it may take up to 5 minutes before the Alkemio Server is running. To monitor how the containers are starting up either use a tool like Docker Desktop (windows) or Portainer (any operating system).
 
-At this point you hopefully will have a running platform with a default Challenge Hub! Both client and server are exposed locally and can be accessed as [per description](#Interaction) above.
+At this point you hopefully will have a running platform with a default Space! Both client and server are exposed locally and can be accessed as [per description](#Interaction) above.
 
 Once the cluster is setup, the next step is to load data into the Alkemio Server:
 * **Install package dependencies**: From the command line execute the following command to install all required package dependencies: `npm install`
@@ -54,7 +56,7 @@ Once the cluster is setup, the next step is to load data into the Alkemio Server
   * Note 1: this can take a couple of minutes, you will see the progress in the window where you executed the command.
   * Note 2: if you want to have another user / pass or user+password for the admin account, create .env file in the project root directory (Copy the `.env.docker` file to be `.env` file) and add AUTH_ADMIN_EMAIL=[email] and / or AUTH_ADMIN_PASSWORD=[password]
 
-At this point you hopefully have a populated Hub, with Challenges / sample users visible.
+At this point you hopefully have a populated Hub, with a sample Space / sample users visible.
 
 ## Authentication
 
@@ -68,13 +70,16 @@ For this, open a local browser and navigate to [http://localhost:3000/graphql](h
 A simple graphql query to try out is:
 ```
 query {
-  hubs {
-    name,
-    context {
-     tagline
-    }
-    challenges {
-      name
+  spaces {
+    id
+    profile {
+      displayName
+      tagline
+    },
+    subspaces {
+      profile {
+        displayName
+      }
     }
   }
 }
@@ -89,7 +94,9 @@ Full details of the api can be found on the docs and schema tabs on the right ha
 ## Custom Data
 The sample data that is loaded is from the ```alkemio-sample-sdgs.ods``` file in this repository. This is a spreadsheet, that can be opened in Excel or compatible tools.
 
-To modify the data and see how Alkemio could be used for hosting your Challenges, you can get a first impression by modifying this file.
+To modify the data and see how Alkemio could be used for hosting your collaboration spaces, you can get a first impression by modifying this file.
+
+Note: this file is using an old format, please see the latest vversion of the Populator for latest format.
 
 Note: the file to be loaded is specfied by the *ALKEMIO_DATA_TEMPLATE* environment variable. This is set in the ```.env``` that you created above, so you can also specify a different file name by editing this environment variable.
 
